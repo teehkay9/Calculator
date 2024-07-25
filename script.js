@@ -36,7 +36,11 @@ function calculate() {
       result = prev + curr;
       break;
     case "/":
-      result = prev / curr;
+      if (curr === 0) {
+        result = "Error";
+      } else {
+        result = prev / curr;
+      }
       break;
     case "*":
       result = prev * curr;
