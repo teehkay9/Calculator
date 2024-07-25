@@ -13,3 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearButton = document.querySelector(".clear");
   const decimalButton = document.querySelector(".decimal");
 });
+
+function updateDisplay(value) {
+  display.textContent = value;
+}
+
+function getDisplayValue() {
+  return display.textContent;
+}
