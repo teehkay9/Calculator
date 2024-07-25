@@ -24,8 +24,8 @@ function getDisplayValue() {
 
 function calculate() {
   let result;
-  const prev = previousOperand;
-  const curr = currentOperand;
+  const prev = parseFloat(previousOperand);
+  const curr = parseFloat(currentOperand);
   if (isNaN(prev) || isNaN(curr)) return;
 
   switch (operator) {
@@ -73,4 +73,33 @@ clearButton.addEventListener("click", () => {
   operator = null;
   shouldResetDisplay = false;
   updateDisplay("0");
+});
+
+equalsButton.addEventListener("click", () => {
+  if (currentOperand === "" || previousOperand === "" || operator === null) return;
+  calculate();
+  operator = null;
+});
+
+decimalButton.addEventListener("click", () => {
+  if (shouldResetDisplay) {
+    currentOperand = "0.";
+    shouldResetDisplay = false;
+  } else if (!currentOperand.includes(".")) {
+    currentOperand += ".";
+  }
+  updateDisplay(currentOperand);
+});
+
+operatorButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (currentOperand === "" && previousOperand === "") return;
+    if (previousOperand !== "" && operator !== null) {
+      calculate();
+    }
+    operator = button.value; // set the new operator
+    previousOperand = currentOperand; // store result as previous operand for next operation
+    currentOperand = "";
+    shouldResetDisplay = true;
+  });
 });
